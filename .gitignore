@@ -1,0 +1,11 @@
+node_modules/
+.next/
+.next-browser-tests/
+.runtime/
+.env*
+!.env.example
+coverage/
+test-results/
+playwright-report/
+*.log
+*.tsbuildinfo

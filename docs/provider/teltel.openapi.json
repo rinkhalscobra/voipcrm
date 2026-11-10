@@ -1,0 +1,238 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "3.0.0",
+        "title": "%{BRAND_NAME}% API"
+    },
+    "tags": [
+        {
+            "name": "Account",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Access groups",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Autodialer",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Autodialer campaigns",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Autodialer campaigns",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Autodialer contacts",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Account",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Calls",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Devices",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "SMS outbox",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "SMS inbox",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "SMS campaigns",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Users",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "User statuses",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Contact groups",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Contacts",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Transfers",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Transfers",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Phone number lookup (HLR)",
+            "x-tag-expanded": false
+        },
+        {
+            "name": "Phone numbers",
+            "x-tag-expanded": false,
+            "description": "This method group is used for retrieving and updating DID number assigned to your account as well as ordering new ones.\n\nTo order new numbers, you must first select a country - use `GET /dids/new-numbers/countries` endpoint to see a list of available countries and get country resource ID.\n\nThen, you need to get price group resource ID, that is required for creating an order. Use `GET /dids/new-numbers/countries/{id}/price-groups` (where id is country resource id) endpoint to retrieve a list of available numbers for a specific country.\n\nFinally, send a request to `POST /dids/orders` with your desired price group resource ID. For other necessary fields, check `POST /dids/orders` request body."
+        }
+    ],
+    "paths": {
+        "/account/balance": {
+            "$ref": "./apidoc/paths/account/balance.json"
+        },
+        "/autodialers": {
+            "$ref": "./apidoc/paths/autodialers/autodialers.json"
+        },
+        "/autodialers/{id}": {
+            "$ref": "./apidoc/paths/autodialers/autodialer.json"
+        },
+        "/autodialers/{id}/actions": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-actions.json"
+        },
+        "/autodialers/{id}/livestats" :{
+            "$ref": "./apidoc/paths/autodialers/autodialer-livestats.json"
+        },
+        "/autodialers/attributes/custom-statuses": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-custom-statuses.json"
+        },
+        "/autodialers/attributes/custom-statuses/{id}": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-custom-status.json"
+        },
+        "/autodialers/{id}/contacts": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-contacts.json"
+        },
+        "/autodialers/{id}/contacts/{contactId}": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-contact.json"
+        },
+        "/autodialers/{id}/contacts/phone/{phoneNumber}": {
+            "$ref": "./apidoc/paths/autodialers/autodialer-contact-phone.json"
+        },
+        "/devices": {
+            "$ref": "./apidoc/paths/devices/devices.json"
+        },
+        "/users": {
+            "$ref": "./apidoc/paths/users/users.json"
+        },
+        "/users/{id}/cidgroups": {
+            "$ref": "./apidoc/paths/users/user-cid-groups.json"
+        },
+        "/users/{id}/status": {
+            "$ref": "./apidoc/paths/users/user-status.json"
+        },
+        "/user-statuses": {
+            "$ref": "./apidoc/paths/user-statuses/user-statuses.json"
+        },
+        "/user-statuses/{id}": {
+            "$ref": "./apidoc/paths/user-statuses/user-status.json"
+        },
+        "/calls": {
+            "$ref": "./apidoc/paths/calls/calls.json"
+        },
+        "/sms/text": {
+            "$ref": "./apidoc/paths/sms-outbox/sms-text.json"
+        },
+        "/sms/bulk/text": {
+            "$ref": "./apidoc/paths/sms-outbox/sms-text-bulk.json"
+        },
+        "/sms/action/send/text": {
+            "$ref": "./apidoc/paths/sms-outbox/sms-send-action.json"
+        },
+        "/sms/reports": {
+            "$ref": "./apidoc/paths/sms-outbox/sms-reports.json"
+        },
+        "/sms/reports/{id}": {
+            "$ref": "./apidoc/paths/sms-outbox/sms-report.json"
+        },
+        "/sms/inbox/text": {
+            "$ref": "./apidoc/paths/sms-inbox/sms-inbox-text.json"
+        },
+        "/sms/action/send/inbox/text": {
+            "$ref": "./apidoc/paths/sms-inbox/sms-inbox-text-action.json"
+        },
+        "/sms/inbox/reports": {
+            "$ref": "./apidoc/paths/sms-inbox/sms-reports.json"
+        },
+        "/sms/inbox/reports/{id}": {
+            "$ref": "./apidoc/paths/sms-inbox/sms-report.json"
+        },
+        "/sms/campaigns": {
+            "$ref": "./apidoc/paths/sms-campaigns/sms-campaigns.json"
+        },
+        "/sms/campaigns/{id}": {
+            "$ref": "./apidoc/paths/sms-campaigns/sms-campaign.json"
+        },
+        "/sms/campaigns/{id}/actions": {
+            "$ref": "./apidoc/paths/sms-campaigns/sms-campaign-actions.json"
+        },
+        "/contacts/groups": {
+            "$ref": "./apidoc/paths/contacts/contact-groups.json"
+        },
+        "/contacts/groups/{id}": {
+            "$ref": "./apidoc/paths/contacts/contact-group.json"
+        },
+        "/contacts/groups/{id}/contacts": {
+            "$ref": "./apidoc/paths/contacts/contact-group-contacts.json"
+        },
+        "/contacts": {
+            "$ref": "./apidoc/paths/contacts/contacts.json"
+        },
+        "/contacts/bulk": {
+            "$ref": "./apidoc/paths/contacts/contacts-bulk.json"
+        },
+        "/contacts/{id}": {
+            "$ref": "./apidoc/paths/contacts/contact.json"
+        },
+        "/numbers/lookup/{numbers}": {
+            "$ref": "./apidoc/paths/number-lookup.json"
+        },
+        "/dids/my-numbers": {
+            "$ref": "./apidoc/paths/dids/my-numbers.json"
+        },
+        "/dids/my-numbers/{id}": {
+            "$ref": "./apidoc/paths/dids/my-number.json"
+        },
+        "/dids/my-numbers/{id}/users": {
+            "$ref": "./apidoc/paths/dids/my-number-users.json"
+        },
+        "/dids/my-numbers/{id}/groups": {
+            "$ref": "./apidoc/paths/dids/my-number-groups.json"
+        },
+        "/dids/new-numbers/countries": {
+            "$ref": "./apidoc/paths/dids/new-numbers-countries.json"
+        },
+        "/dids/new-numbers/countries/{id}": {
+            "$ref": "./apidoc/paths/dids/new-numbers-country.json"
+        },
+        "/dids/new-numbers/countries/{id}/price-groups": {
+            "$ref": "./apidoc/paths/dids/new-numbers-price-groups.json"
+        },
+        "/dids/orders": {
+            "$ref": "./apidoc/paths/dids/orders.json"
+        }
+    },
+    "security": [
+        {
+            "newSecurityScheme": []
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "newSecurityScheme": {
+                "type": "apiKey",
+                "name": "apikey",
+                "in": "query"
+            }
+        }
+    }
+}

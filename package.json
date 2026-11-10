@@ -1,0 +1,64 @@
+{
+  "name": "voixel-telecom-platform",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "worker": "tsx --env-file=.env worker/index.ts",
+    "bootstrap": "tsx --env-file=.env scripts/bootstrap.ts",
+    "seed": "tsx --env-file=.env scripts/seed-demo.ts",
+    "migrate": "node --env-file=.env scripts/migrate.mjs",
+    "verify:live": "node --env-file=.env scripts/verify-live.mjs",
+    "verify:secrets": "node --env-file=.env scripts/verify-build-secrets.mjs",
+    "test:browser": "playwright test",
+    "seed:demo": "tsx --env-file=.env scripts/seed-demo.ts",
+    "admin:demo": "tsx --env-file=.env scripts/create-demo-admin.ts",
+    "verify:registration": "node --env-file=.env scripts/verify-registration.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "latest",
+    "@radix-ui/react-slot": "latest",
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "@tanstack/react-query": "latest",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "decimal.js": "latest",
+    "exceljs": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "pdf-lib": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "recharts": "latest",
+    "server-only": "latest",
+    "tailwind-merge": "latest",
+    "zod": "latest",
+    "tsx": "latest"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "latest",
+    "@playwright/test": "^1.65.0",
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "prettier": "^3.9.10",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "overrides": {
+    "exceljs": {
+      "uuid": "^11.1.1"
+    }
+  },
+  "type": "module"
+}
