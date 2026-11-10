@@ -6,6 +6,7 @@ import { api } from "@/lib/api/client";
 import { formatDate } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { Select } from "./ui/select";
 import {
   Badge,
   EmptyState,
@@ -88,25 +89,24 @@ export function Dialer({
           >
             <label className="form-field">
               Calling identity
-              <select
-                className="form-select"
+              <Select
+                aria-label="Calling identity"
+                placeholder="Select an authorized identity"
+                emptyMessage="No authorized identities available"
                 required
                 value={identity}
-                onChange={(e) => {
-                  setIdentity(e.target.value);
+                onValueChange={(value) => {
+                  setIdentity(value);
                   setRequestKey(crypto.randomUUID());
                 }}
-              >
-                <option value="">Select an authorized identity</option>
-                {identities.data?.data.map((i) => (
-                  <option key={str(i, "id")} value={str(i, "id")}>
-                    {str(
-                      relation(relation(i, "did_allocations"), "did_numbers"),
-                      "number",
-                    )}
-                  </option>
-                ))}
-              </select>
+                options={(identities.data?.data ?? []).map((i) => ({
+                  value: str(i, "id"),
+                  label: str(
+                    relation(relation(i, "did_allocations"), "did_numbers"),
+                    "number",
+                  ),
+                }))}
+              />
             </label>
             <Input
               className="dialer-number"

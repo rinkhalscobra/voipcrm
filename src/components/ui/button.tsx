@@ -12,7 +12,11 @@ const buttonVariants = cva(
         ghost: "button-ghost",
         destructive: "button-destructive",
       },
-      size: { default: "h-10 px-4", sm: "h-8 px-3 text-xs", icon: "size-9" },
+      size: {
+        default: "h-10 px-4",
+        sm: "button-small h-8 px-3",
+        icon: "size-9",
+      },
     },
     defaultVariants: { variant: "default", size: "default" },
   },

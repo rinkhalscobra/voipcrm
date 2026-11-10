@@ -19,6 +19,7 @@ import {
 import { api } from "@/lib/api/client";
 import { formatDate, formatMoney, formatCredit } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { Select } from "./ui/select";
 import { Dialog, DialogContent } from "./ui/dialog";
 import {
   Badge,
@@ -648,6 +649,12 @@ export function ResourcePage({
     return null;
   };
   const action = createAction();
+  const companyOptionsUnavailable = companies.isPending || companies.isError;
+  const employeeOptionsUnavailable = employees.isPending || employees.isError;
+  const actionOptionsUnavailable = Boolean(
+    action?.fields.some((field) => field.name === "company_id") &&
+    companyOptionsUnavailable,
+  );
   const allRows = query.data?.data ?? [];
   const filteredRows = query.data?.meta
     ? allRows
@@ -717,6 +724,21 @@ export function ResourcePage({
       {query.error && (
         <ErrorBanner error={query.error} retry={() => query.refetch()} />
       )}
+      {companies.error && (
+        <ErrorBanner
+          error={companies.error}
+          retry={() => companies.refetch()}
+        />
+      )}
+      {employees.error && (
+        <ErrorBanner
+          error={employees.error}
+          retry={() => employees.refetch()}
+        />
+      )}
+      {clients.error && (
+        <ErrorBanner error={clients.error} retry={() => clients.refetch()} />
+      )}
       <div className="toolbar">
         <div className="search-box">
           <Search size={15} />
@@ -732,22 +754,21 @@ export function ResourcePage({
         </div>
         {resource === "calls" && (
           <>
-            <select
+            <Select
               aria-label="Filter call status"
-              className="date-select"
+              size="compact"
               value={status}
-              onChange={(e) => {
-                setStatus(e.target.value);
+              onValueChange={(value) => {
+                setStatus(value);
                 setPage(1);
               }}
-            >
-              <option value="">All statuses</option>
-              {["answer", "busy", "noanswer", "cancel", "failed"].map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
+              options={[
+                { value: "", label: "All statuses" },
+                ...["answer", "busy", "noanswer", "cancel", "failed"].map(
+                  (value) => ({ value, label: value }),
+                ),
+              ]}
+            />
             <input
               aria-label="Calls starting from"
               className="date-select"
@@ -783,7 +804,11 @@ export function ResourcePage({
               </>
             )}
           {action && (
-            <Button size="sm" onClick={() => openAction(action)}>
+            <Button
+              size="sm"
+              disabled={actionOptionsUnavailable}
+              onClick={() => openAction(action)}
+            >
               <Plus size={14} />
               {resource === "clients"
                 ? "Add client"
@@ -1058,6 +1083,12 @@ export function ResourcePage({
                               <Button
                                 size="sm"
                                 variant="outline"
+                                disabled={
+                                  companyOptionsUnavailable &&
+                                  !(
+                                    row.did_allocations as Row[] | undefined
+                                  )?.some((allocation) => !allocation.valid_to)
+                                }
                                 onClick={() =>
                                   confirmAction(
                                     row,
@@ -1087,6 +1118,7 @@ export function ResourcePage({
                               <Button
                                 size="sm"
                                 variant="ghost"
+                                disabled={employeeOptionsUnavailable}
                                 onClick={() => {
                                   const active = (
                                     row.did_allocations as Row[] | undefined
@@ -1129,6 +1161,7 @@ export function ResourcePage({
                               <Button
                                 size="sm"
                                 variant="ghost"
+                                disabled={employeeOptionsUnavailable}
                                 onClick={() =>
                                   openAction({
                                     title: "Reassign employee",
@@ -1346,7 +1379,11 @@ export function ResourcePage({
             }
             action={
               action ? (
-                <Button size="sm" onClick={() => openAction(action)}>
+                <Button
+                  size="sm"
+                  disabled={actionOptionsUnavailable}
+                  onClick={() => openAction(action)}
+                >
                   <Plus size={13} />
                   Get started
                 </Button>

@@ -8,6 +8,10 @@ export class AppError extends Error {
   }
 }
 export const publicMessages: Record<string, string> = {
+  VERIFICATION_CODE_INVALID:
+    "That verification code is incorrect or has expired. Check the latest email or request a new code.",
+  EMAIL_DELIVERY_FAILED:
+    "The verification email could not be sent. Please try again shortly.",
   EMAIL_IN_USE:
     "That email is already used by another account. Choose a different login email.",
   PASSWORD_REJECTED:

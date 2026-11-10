@@ -13,8 +13,10 @@ const secrets = [
   process.env.SUPABASE_ACCESS_TOKEN,
   process.env.PROVIDER_ENCRYPTION_KEY,
   process.env.TELTEL_API_KEY,
+  process.env.SMTP_PASSWORD,
 ].filter(Boolean);
-for (const file of await files(".next/static")) {
+const buildDirectory = process.argv[2] ?? ".next";
+for (const file of await files(`${buildDirectory}/static`)) {
   const content = await readFile(file, "utf8");
   if (secrets.some((secret) => content.includes(secret)))
     throw new Error(`Server secret found in browser artifact: ${file}`);

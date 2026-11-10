@@ -44,8 +44,7 @@ test("the header toggle persists through reloads and navigation and works with t
     exact: true,
   });
   await expect(toggle).toBeEnabled();
-  await toggle.focus();
-  await page.keyboard.press("Enter");
+  await toggle.press("Enter");
   await theme(page, "light");
   await page.reload();
   await theme(page, "light");
@@ -53,14 +52,20 @@ test("the header toggle persists through reloads and navigation and works with t
     .getByRole("navigation")
     .getByRole("link", { name: "Companies", exact: true })
     .click();
+  await page.waitForURL("**/admin/companies");
+  await expect(
+    page.getByRole("heading", { name: "Companies", exact: true }),
+  ).toBeVisible();
   await theme(page, "light");
   await expect(
     page.locator('meta[name="theme-color"]').first(),
   ).toHaveAttribute("content", "#f5f6fb");
-  await page
-    .getByRole("button", { name: "Switch to dark mode", exact: true })
-    .focus();
-  await page.keyboard.press("Space");
+  const darkToggle = page.getByRole("button", {
+    name: "Switch to dark mode",
+    exact: true,
+  });
+  await expect(darkToggle).toBeEnabled();
+  await darkToggle.press("Space");
   await theme(page, "dark");
   await page.goto("/login");
   await theme(page, "dark");
@@ -99,7 +104,7 @@ test("theme changes synchronize between tabs, including an open portal dialog", 
   );
   await expect(dialog.getByRole("textbox")).toHaveCSS(
     "color",
-    "rgb(32, 38, 56)",
+    "rgb(21, 23, 27)",
   );
   await other
     .getByRole("button", { name: "Switch to dark mode", exact: true })
@@ -128,6 +133,7 @@ test("both themes cover public pages, every main module, and every workspace", a
       "/register",
       "/auth/reset",
       "/auth/password",
+      "/auth/verify",
       "/auth/complete",
       "/unavailable-route",
       "/admin",

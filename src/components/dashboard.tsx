@@ -298,7 +298,10 @@ export function Dashboard({
             <m.icon size={16} />
             <div>
               <strong
-                style={{ fontSize: m.value.length > 15 ? 12 : undefined }}
+                style={{
+                  fontSize:
+                    m.value.length > 15 ? "var(--type-body)" : undefined,
+                }}
               >
                 {m.value}
               </strong>
@@ -378,13 +381,19 @@ export function Dashboard({
                         day: "numeric",
                       })
                     }
-                    tick={{ fill: "var(--muted)", fontSize: 9 }}
+                    tick={{
+                      fill: "var(--muted)",
+                      fontSize: "var(--type-caption)",
+                    }}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={25}
                   />
                   <YAxis
-                    tick={{ fill: "var(--muted)", fontSize: 9 }}
+                    tick={{
+                      fill: "var(--muted)",
+                      fontSize: "var(--type-caption)",
+                    }}
                     axisLine={false}
                     tickLine={false}
                     width={30}
@@ -395,7 +404,7 @@ export function Dashboard({
                       border: "1px solid var(--border-strong)",
                       color: "var(--foreground)",
                       borderRadius: 8,
-                      fontSize: 11,
+                      fontSize: "var(--type-label)",
                     }}
                   />
                   <Area

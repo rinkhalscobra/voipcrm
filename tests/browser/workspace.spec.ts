@@ -67,12 +67,14 @@ test("every navigation module resolves with an empty or setup state", async ({
 test("global search navigates to an actual module", async ({ page }) => {
   await page.goto("/admin");
   await page.getByRole("button", { name: /Search workspace/ }).click();
-  await page.getByRole("textbox", { name: "Search navigation" }).fill("wallet");
+  await page
+    .getByRole("textbox", { name: "Search navigation" })
+    .fill("balance");
   await page
     .getByRole("dialog")
-    .getByRole("link", { name: "Customer wallets" })
+    .getByRole("link", { name: "Client balances" })
     .click();
-  await expect(page).toHaveURL(/\/admin\/wallets$/);
+  await expect(page).toHaveURL(/\/admin\/client-balances$/);
 });
 test("mobile navigation is accessible and stays within viewport", async ({
   page,

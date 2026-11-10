@@ -116,7 +116,7 @@ export function ClientBalancesPage({
                 </span>
               </div>
               {admin && (
-                <p className="muted" style={{ fontSize: 12 }}>
+                <p className="muted" style={{ fontSize: "var(--type-body)" }}>
                   {str(wallet, "client_email")} · {str(wallet, "company_name")}
                 </p>
               )}
@@ -124,7 +124,7 @@ export function ClientBalancesPage({
                 {formatCredit(String(wallet.balance), str(wallet, "currency"))}
               </div>
               <span className="subtle-label">Available client credit</span>
-              <p style={{ marginTop: 18, fontSize: 13 }}>
+              <p style={{ marginTop: 18, fontSize: "var(--type-emphasis)" }}>
                 Germany:{" "}
                 <strong>
                   {wallet.germany_rate == null
@@ -133,7 +133,7 @@ export function ClientBalancesPage({
                 </strong>
               </p>
               {wallet.germany_rate != null && (
-                <p className="muted" style={{ fontSize: 12 }}>
+                <p className="muted" style={{ fontSize: "var(--type-body)" }}>
                   1 hour costs{" "}
                   {formatCredit(
                     new Decimal(String(wallet.germany_rate))
@@ -144,7 +144,7 @@ export function ClientBalancesPage({
                   . Partial minutes are charged by the second.
                 </p>
               )}
-              <p className="muted" style={{ fontSize: 12 }}>
+              <p className="muted" style={{ fontSize: "var(--type-body)" }}>
                 New calls from {formatDate(str(wallet, "billing_from"))}.
                 Earlier history is not charged.
               </p>

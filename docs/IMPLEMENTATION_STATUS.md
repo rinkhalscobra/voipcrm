@@ -7,6 +7,7 @@ The application is functional where a workflow is listed as implemented. Data-de
 - Platform-wide Light, Dark, and System appearance modes. Header/login controls and **Settings → Appearance** update public pages, all workspaces, dialogs, forms, tables, badges, charts, and loading/error states. Preferences persist in the browser, synchronize across tabs, follow OS changes in System mode, and apply before hydration to prevent a theme flash. Theme controls also work without browser storage.
 - Next.js App Router, TypeScript, Tailwind, Radix/shadcn-style UI primitives, Lucide, TanStack Query, Recharts.
 - Supabase email/password authentication, isolated new-company registration, staff invitations, recovery, password change, and session refresh. Authenticator enrollment and verification are disabled, and existing enrolled factors have been removed at the user's request.
+- Registration email verification through the configured support mailbox over authenticated TLS SMTP. Branded messages from Voixel deliver six-digit single-use codes; the verification page supports entry, resend, reload recovery, expiry feedback, and server-side attempt/send limits. Verification, recovery, and invitations use consistent professional email layouts and subjects. Supabase blocks unverified password login and issues the session after confirmation. SMTP credentials remain in the ignored environment file and Supabase Auth configuration. See `docs/EMAIL_VERIFICATION.md`.
 - Nineteen SQL migrations, 57 public application tables, RLS, private credential/payload tables, and server-side permission checks.
 - Database-enforced demo/live isolation and an atomic cleanup migration that permanently removes tagged synthetic data, checks live-row preservation, and retains immutable-ledger protections.
 - Super Admin/company/client/manager/team leader/agent routes and scoped navigation.
@@ -28,7 +29,7 @@ The application is functional where a workflow is listed as implemented. Data-de
 ## Needs credentials or operator configuration
 
 - Client credit top-ups and verified caller-ID permissions before callbacks are enabled; rates for destinations beyond the configured Germany plan, and additional customer mappings beyond the first provisioned client.
-- Deployment URL, Vercel project, persistent worker host, production email delivery settings, and production backup/monitoring ownership.
+- Deployment URL, Vercel project, persistent worker host, and production backup/monitoring ownership.
 
 ## Further implementation required
 

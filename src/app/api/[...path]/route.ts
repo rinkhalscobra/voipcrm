@@ -25,6 +25,10 @@ import { e164 } from "@/lib/providers/contracts";
 import { createHash } from "node:crypto";
 import { isDemoData } from "@/lib/data-mode";
 import { registerWorkspace } from "@/lib/auth/registration";
+import {
+  verifySignupEmail,
+  resendSignupEmail,
+} from "@/lib/auth/email-verification";
 import { clientAccountSchema } from "@/lib/auth/client-account-schema";
 import { updateClientAccount } from "@/lib/auth/client-account";
 
@@ -59,6 +63,10 @@ async function handler(request: Request, route: RouteParams) {
       return ok({ configured: isConfigured() });
     if (path === "auth/register" && method === "POST")
       return await registerWorkspace(request);
+    if (path === "auth/verify-email" && method === "POST")
+      return await verifySignupEmail(request);
+    if (path === "auth/resend-verification" && method === "POST")
+      return await resendSignupEmail(request);
     if (path === "branding" && method === "GET") {
       if (!isConfigured())
         return ok({

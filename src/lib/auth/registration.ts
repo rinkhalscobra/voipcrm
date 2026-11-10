@@ -4,6 +4,7 @@ import { body, ok } from "../api/http";
 import { AppError, databaseError } from "../errors";
 import { serverDatabase, serviceDatabase } from "../supabase/server";
 import { registrationSchema } from "./registration-schema";
+import settings from "./email-verification-settings.json";
 
 export async function registerWorkspace(request: Request) {
   const db = await serverDatabase();
@@ -38,12 +39,20 @@ export async function registerWorkspace(request: Request) {
       },
     },
   });
+  if (result.error?.status === 429) throw new AppError("RATE_LIMITED", 429);
+  if (
+    result.error?.code === "unexpected_failure" ||
+    result.error?.status === 500
+  )
+    throw new AppError("EMAIL_DELIVERY_FAILED", 502);
   if (result.error || !result.data.user)
     throw new AppError("REGISTRATION_FAILED", 409);
-  // Supabase writes the session into secure session cookies in demo mode.
-  // Live mode waits for the confirmation email before issuing that session.
+  // Supabase issues the session only after the email code is verified.
   return ok(
-    { requiresEmailVerification: !result.data.session },
+    {
+      requiresEmailVerification: !result.data.session,
+      resendAfterSeconds: settings.resendAfterSeconds,
+    },
     undefined,
     201,
   );

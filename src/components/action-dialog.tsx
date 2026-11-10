@@ -6,6 +6,7 @@ import { api } from "@/lib/api/client";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Select } from "./ui/select";
 import { ErrorBanner, SubmitButton } from "./shared";
 export interface Field {
   name: string;
@@ -97,21 +98,18 @@ export function ActionDialog({
                 <label className="form-field" key={field.name}>
                   {field.label}
                   {field.type === "select" ? (
-                    <select
-                      className="form-select"
+                    <Select
+                      aria-label={field.label}
                       name={field.name}
                       required={field.required !== false}
                       defaultValue={field.defaultValue ?? ""}
-                    >
-                      <option value="" disabled={field.required !== false}>
-                        {field.required === false ? "None" : "Select an option"}
-                      </option>
-                      {field.options?.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
+                      options={[
+                        ...(field.required === false
+                          ? [{ value: "", label: "None" }]
+                          : []),
+                        ...(field.options ?? []),
+                      ]}
+                    />
                   ) : (
                     <Input
                       autoComplete={

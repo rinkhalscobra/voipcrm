@@ -13,6 +13,7 @@
     "test": "vitest run",
     "worker": "tsx --env-file=.env worker/index.ts",
     "bootstrap": "tsx --env-file=.env scripts/bootstrap.ts",
+    "configure:auth": "node --env-file=.env scripts/configure-auth.mjs",
     "seed": "tsx --env-file=.env scripts/seed-demo.ts",
     "migrate": "node --env-file=.env scripts/migrate.mjs",
     "verify:live": "node --env-file=.env scripts/verify-live.mjs",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "latest",
+    "@radix-ui/react-select": "^2.4.1",
     "@radix-ui/react-slot": "latest",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
@@ -40,8 +42,8 @@
     "recharts": "latest",
     "server-only": "latest",
     "tailwind-merge": "latest",
-    "zod": "latest",
-    "tsx": "latest"
+    "tsx": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
     "@electric-sql/pglite": "latest",

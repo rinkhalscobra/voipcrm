@@ -44,6 +44,7 @@ import { api } from "@/lib/api/client";
 import type { UserContext } from "@/lib/types";
 import { hasPermission } from "@/lib/auth/permissions";
 import { Button } from "./ui/button";
+import { Select } from "./ui/select";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { ActionDialog, type Action } from "./action-dialog";
 import { Dashboard } from "./dashboard";
@@ -563,16 +564,16 @@ export function Workspace({
             <div className="heading-actions">
               {resource === "" ? (
                 <>
-                  <select
-                    className="date-select"
-                    value={days}
-                    onChange={(e) => setDays(Number(e.target.value))}
+                  <Select
+                    size="compact"
+                    value={String(days)}
+                    onValueChange={(value) => setDays(Number(value))}
                     aria-label="Dashboard date range"
-                  >
-                    <option value={7}>Last 7 days</option>
-                    <option value={30}>Last 30 days</option>
-                    <option value={90}>Last 90 days</option>
-                  </select>
+                    options={[7, 30, 90].map((value) => ({
+                      value: String(value),
+                      label: `Last ${value} days`,
+                    }))}
+                  />
                   <Button
                     className="export-button"
                     size="sm"
@@ -1081,24 +1082,19 @@ function Profile({
             </label>
             <label className="form-field">
               Local availability
-              <select
-                className="form-select"
+              <Select
+                aria-label="Local availability"
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                {[
+                onValueChange={setStatus}
+                options={[
                   "available",
                   "busy",
                   "break",
                   "lunch",
                   "meeting",
                   "offline",
-                ].map((s) => (
-                  <option value={s} key={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
+                ].map((value) => ({ value, label: value }))}
+              />
             </label>
           </div>
           <div className="form-actions">
